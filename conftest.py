@@ -9,7 +9,7 @@ def browser():
     yield driver 
     driver.quit()
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def generate_test_data():
     fake = faker.Faker('ru_RU')
     return {
@@ -17,3 +17,7 @@ def generate_test_data():
         "password": fake.password(length=7),
         "name": fake.first_name()
     }
+
+@pytest.fixture(scope="function")
+def base_url():
+    return "https://stellarburgers.education-services.ru"
