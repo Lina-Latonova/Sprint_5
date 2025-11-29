@@ -15,6 +15,7 @@ class TestConstructorPage:
         filling_button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.FILLING_BUTTON))
         self.scroll_to_element(browser, filling_button)
         filling_button.click()
+
         filling_header_element = WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.FILLING_HEADER))
         assert filling_header_element.text == 'Начинки', "Заголовок 'Начинки' не отображается или текст не соответствует."
 
@@ -24,7 +25,7 @@ class TestConstructorPage:
         self.scroll_to_element(browser, bread_button)
         
         # Поиск элемента и клик через JavaScript
-        element = browser.find_element(By.CSS_SELECTOR, Locators.BREAD_BUTTON)
+        element = browser.find_element(*Locators.BREAD_BUTTON)
         browser.execute_script("arguments[0].click();", element)
         
         bread_header_element = WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.BREAD_HEADER))
@@ -34,26 +35,14 @@ class TestConstructorPage:
 
     def test_go_to_sauce(self, browser): # последняя версия
         """Проверка перехода в раздел 'Соусы'."""
-        # Дождёмся полной загрузки страницы
-        WebDriverWait(browser, 10).until(lambda x: x.execute_script("return document.readyState") == "complete")
-
-        # Исключение проверки AJAX-запросов
-        # WebDriverWait(browser, 10).until(lambda x: x.execute_script("return window.jQuery && jQuery.active === 0"))
-
         # Ищем элемент
         sauce_button = WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.SAUCE_BUTTON))
 
         # Прокручиваем элемент в центр окна
         self.scroll_to_element(browser, sauce_button)
 
-        # Подтверждаем, что элемент кликабелен
-        sauce_button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable(sauce_button))
-
         # Клик по элементу
         sauce_button.click()
-
-        # Паузу оставляем небольшой
-        time.sleep(2)
 
         # Проверяем наличие заголовка "Соусы"
         sauce_header = WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.SAUCE_HEADER))

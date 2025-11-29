@@ -16,20 +16,20 @@ class Locators:
     REGISTRATION_BUTTON = (By.XPATH, ".//button[text()='Зарегистрироваться']")  # кнопка "Зарегистрироваться"
     FILLING_BUTTON = (By.XPATH, "//span[text()='Начинки']") # Кнопка "Начинки" на главной
     
-    SAUCE_BUTTON = (By.XPATH, "//span[@class='text text_type_main-default'][text()='Соусы']") # Кнопка "Соусы" на главной =
+    SAUCE_BUTTON = (By.XPATH, "//span[text()='Соусы']") # Кнопка "Соусы" на главной =
     
-    BREAD_BUTTON = (By.CSS_SELECTOR, '.tab_tab__1SPyG.tab_tab_type_current__2BEPc > .text_type_main-default') # Кнопка "Булки" на главной
+    BREAD_BUTTON = (By.XPATH, "//span[text()='Булки']") # Кнопка "Булки" на главной
     
-    FILLING_HEADER = (By.XPATH, "//h2[@class='text text_type_main-medium mb-6 mt-10' and text()='Начинки']") # Наименование раздела "Начинки" 
+    FILLING_HEADER = (By.XPATH, "//h2[text()='Начинки']")  # Наименование раздела "Начинки"
     
-    SAUCE_HEADER = (By.XPATH, "//h2[contains(@class,'text_type_main-medium')][text()='Соусы']") # Раздел "Соусы"
+    SAUCE_HEADER = (By.XPATH, "//h2[text()='Соусы']") # Раздел "Соусы"
     
-    BREAD_HEADER = (By.XPATH, "//h2[@class='text text_type_main-medium mb-6 mt-10' and text()='Булки']") # Наименование раздела "Булки"
+    BREAD_HEADER = (By.XPATH, "//h2[text()='Булки']") # Наименование раздела "Булки"
     
     ERROR_MESSAGE = (By.XPATH, "//p[@class='input__error text_type_main-default']")
     EXIT_BUTTON = (By.XPATH, "//button[text()='Выход']") # Кнопка "Выход" в личном кабинете
     LOGIN_LINK = (By.XPATH, "//a[@href='/login']") # Кнопка Войти на страницы регистрации
     ACCOUNT_HEADER = (By.XPATH, "//button[text()='Личный кабинет']") # Кнопка "Личный кабинет" в хедере
-    SAUCE_HEADER = (By.XPATH, "//h2[text()='Вход']") # Заголовок Вход на странице регистрации
+    ENTER_HEADER = (By.XPATH, "//h2[text()='Вход']") # Заголовок Вход на странице регистрации
     ACCOUNT_LINK = (By.XPATH, "//a[@class='Auth_link__1fOlj' and text()='Войти']") # Уже зарегистрированы? Войти - кнопка
     PROFILE_NAV = (By.XPATH, "//a[@class='Account_link__2ETsJ text text_type_main-medium text_color_inactive Account_link_active__2opc9' and text()='Профиль']")
