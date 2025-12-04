@@ -1,6 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from .test_locators import Locators
+from .locators import Locators
 from .test_data import get_registration_data
 
 def test_login_via_lk_button(browser, base_url):

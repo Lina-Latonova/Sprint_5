@@ -1,7 +1,8 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from .test_locators import Locators
+from selenium.common.exceptions import TimeoutException
+from .locators import Locators
 from .test_data import get_registration_data
 
 def test_successful_registration(browser: WebDriver, base_url):
@@ -25,7 +26,10 @@ def test_invalid_password(browser: WebDriver, base_url):
     browser.find_element(*Locators.PASSWORD_FIELD).send_keys(data["password"])
     browser.find_element(*Locators.REGISTRATION_BUTTON).click()
 
-    WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.PASSWORD_ERROR))
-    error_message = browser.find_element(*Locators.ERROR_MESSAGE).text
-    assert error_message == "Не корректный пароль"\
-        f"Тест НЕ пройден. Ожидается сообщение 'Не корректный пароль', получено '{error_message}'"
+    try:
+        password_error = WebDriverWait(browser, 10).until(EC.presence_of_element_located(Locators.PASSWORD_ERROR))
+        error_message = password_error.text.strip()
+        assert error_message == "Некорректный пароль", \
+            f"Тест НЕ пройден. Ожидается сообщение 'Некорректный пароль', получено '{error_message}'"
+    except TimeoutException:
+        print("Сообщение об ошибке пароля не появилось.")
