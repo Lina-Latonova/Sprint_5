@@ -1,20 +1,16 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import Locators
-from selenium.webdriver.common.by import By
 import time
+from .helpers import Helper
 
 class TestConstructorPage:
-
-    def scroll_to_element(self, browser, element):
-        """Метод для прокрутки к нужному элементу"""
-        browser.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
-
     def test_go_to_bread(self, browser):
         # Ждём доступность кнопки "Булки" и прокручиваем страницу к ней
+        helper = Helper()
         bread_button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.BREAD_BUTTON))
-        self.scroll_to_element(browser, bread_button)
-        time.sleep(1)  # Дожидаемся полной готовности элемента
+        helper.scroll_to_element(browser, bread_button)
+        #time.sleep(1)  # Дожидаемся полной готовности элемента
         browser.execute_script("arguments[0].click();", bread_button)
 
         # Проверяем, что активна именно кнопка "Булки"
@@ -22,9 +18,10 @@ class TestConstructorPage:
         assert selected_button_text == "Булки"
 
     def test_go_to_sauce(self, browser):
-    # Ждем доступности кнопки "Соусы" и прокручиваем страницу к ней
+        # Ждем доступности кнопки "Соусы" и прокручиваем страницу к ней
+        helper = Helper()
         sauce_button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.SAUCE_BUTTON))
-        self.scroll_to_element(browser, sauce_button)
+        helper.scroll_to_element(browser, sauce_button)
         sauce_button.click()
 
         # Проверяем, что активна именно кнопка "Соусы"
@@ -33,8 +30,9 @@ class TestConstructorPage:
 
     def test_go_to_filling(self, browser):
         # Ждем доступности кнопки "Начинки" и прокручиваем страницу к ней
+        helper = Helper()
         filling_button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.FILLING_BUTTON))
-        self.scroll_to_element(browser, filling_button)
+        helper.scroll_to_element(browser, filling_button)
         filling_button.click()
 
         # Проверяем, что активна именно кнопка "Начинки"

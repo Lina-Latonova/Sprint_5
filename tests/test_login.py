@@ -1,29 +1,26 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import Locators
-from .test_data import get_registration_data
+from .helpers import Helper
+from .urls import LOGIN_PAGE_URL
 
-def login(browser):
-    data = get_registration_data()["valid_data"]
-    WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.EMAIL_FIELD)).send_keys(data["email"])
-    WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.PASSWORD_FIELD)).send_keys(data["password"])
-    WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.SUBMIT_BUTTON)).click()
+def test_login_from_register(browser):
+    helper = Helper()
+    browser.get(LOGIN_PAGE_URL)
+    helper.login(browser)
+    WebDriverWait(browser, 15).until(EC.visibility_of_element_located(Locators.BUTTON_CONSTRUCTOR))
+    assert browser.find_element(*Locators.BUTTON_CONSTRUCTOR).is_displayed()
 
-    WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.CONSTRUCTOR_BUTTON))
-
-    assert browser.find_element(*Locators.BUTTON_CONSTRUCTOR).is_displayed(), "Login failed: Constructor button is not visible."
-
-def test_login_from_main(browser, base_url):
-    browser.get(base_url)
+def test_login_from_main(browser):
+    helper = Helper()
     WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.LOGIN_BUTTON)).click()
-    login(browser)
+    helper.login(browser)
+    WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.BUTTON_CONSTRUCTOR))
+    assert browser.find_element(*Locators.BUTTON_CONSTRUCTOR).is_displayed()
 
-def test_login_from_header(browser, base_url):
-    browser.get(base_url)
+def test_login_from_header(browser):
+    helper = Helper()
     WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.HEADER_LOGIN_BUTTON)).click()
-    login(browser)
-
-def test_login_from_register(browser, base_url):
-    browser.get(f"{base_url}/register")
-    WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.ACCOUNT_LINK)).click()
-    login(browser)
+    helper.login(browser)
+    WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.BUTTON_CONSTRUCTOR))
+    assert browser.find_element(*Locators.BUTTON_CONSTRUCTOR).is_displayed()    
