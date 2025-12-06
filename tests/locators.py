@@ -7,7 +7,7 @@ class Locators:
     EMAIL_REG = (By.XPATH, "//label[text()='Email']/parent::div/input")
     PASSWORD_REG = (By.XPATH, "//label[text()='Пароль']/following-sibling::input[@name='Пароль']")
     SUBMIT_BUTTON = (By.XPATH, ".//button[text()='Войти']")  # Кнопка "Войти"
-    PASSWORD_ERROR = (By.XPATH, "//input[text()='Не корректный пароль']") # Сообщение об ошибке пароля
+    PASSWORD_ERROR = (By.XPATH, "//p[@class='input__error text_type_main-default' and text()='Некорректный пароль']") # Сообщение об ошибке пароля
     BUTTON_CONSTRUCTOR  = (By.LINK_TEXT, "Конструктор")  # Кнопка "Конструктор"
     CONSTRUCTOR_BUTTON = (By.CLASS_NAME, "text_type_main-large") # Заголовок конструтора "Собери бургер"
     LOGIN_BUTTON = (By.XPATH, ".//button[text()='Войти в аккаунт']") # Кнопка "Войти в аккаунт" на главной
@@ -22,9 +22,10 @@ class Locators:
     SAUCE_HEADER = (By.XPATH, "//h2[text()='Соусы']") # Раздел "Соусы"
     BREAD_HEADER = (By.XPATH, "//h2[text()='Булки']") # Наименование раздела "Булки"
     ERROR_MESSAGE = (By.XPATH, "//p[.='Некорректный пароль']")
-    EXIT_BUTTON = (By.XPATH, "//button[text()='Выход']") # Кнопка "Выход" в личном кабинете
+   
+    EXIT_BUTTON = (By.XPATH, "//button[@type='button' and @class='Account_button__14Yp3 text text_type_main-medium text_color_inactive' and text()='Выход']") # Кнопка "Выход" в личном кабинете
     LOGIN_LINK = (By.XPATH, "//a[text()='Войти']") # Кнопка Войти на страницы регистрации
-    ACCOUNT_HEADER = (By.XPATH, "//button[text()='Личный кабинет']") # Кнопка "Личный кабинет" в хедере
+    ACCOUNT_HEADER = (By.XPATH, "//a[@class='AppHeader_header__link__3D_hX']/p[text()='Личный Кабинет']") # Кнопка "Личный кабинет" в хедере
     ENTER_HEADER = (By.XPATH, "//h2[text()='Вход']") # Заголовок Вход на странице регистрации
    
     ACCOUNT_LINK = (By.XPATH, "//a[@class='Auth_link__1fOlj' and text()='Войти']") # Уже зарегистрированы? Войти - кнопка

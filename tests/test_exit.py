@@ -1,22 +1,28 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import Locators
-from .data import data
-from selenium.common.exceptions import TimeoutException
+from .helpers import Helper
+from .urls import LOGIN_PAGE_URL
 
 def test_exit(browser):
-    valid_data = data["valid_data"]
+    # Переходим на страницу регистрации и авторизуемся
+    helper = Helper()
+    
+    browser.get(LOGIN_PAGE_URL)
+    helper.login(browser)
 
-    WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.HEADER_LOGIN_BUTTON)).click()
-    WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.EMAIL_FIELD)).send_keys(valid_data["email"])
-    WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.PASSWORD_FIELD)).send_keys(valid_data["password"])
+    # Открываем профиль
+    account_header = browser.find_element(*Locators.ACCOUNT_HEADER)
+    account_header.click()
 
-    WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.SUBMIT_BUTTON)).click()
-    WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.HEADER_LOGIN_BUTTON)).click()
-    WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.EXIT_BUTTON)).click()
+    # Нажимаем кнопку выхода
+    wait = WebDriverWait(browser, 10)
+    exit_buttons = wait.until(EC.element_to_be_clickable(Locators.EXIT_BUTTON))
+    exit_buttons.click()
 
-    try:
-        logout_screen = WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.SUBMIT_BUTTON))
-        assert logout_screen.is_displayed(), "Пользователь вышел из системы"
-    except TimeoutException:
-        assert False, "Элемент не появился после выхода"
+    # Ждем появления кнопки входа
+    wait = WebDriverWait(browser, 10)
+    email_field = wait.until(EC.visibility_of_element_located(Locators.EMAIL_FIELD))
+
+    # Финальное утверждение: проверка, что поле ввода электронной почты появилось
+    assert email_field.is_displayed(), "Тест провалился: Поле ввода электронной почты не появилось после выхода."

@@ -1,40 +1,34 @@
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from .locators import Locators
-import time
 from .helpers import Helper
 
 class TestConstructorPage:
     def test_go_to_bread(self, browser):
-        # Ждём доступность кнопки "Булки" и прокручиваем страницу к ней
+        # Прокручиваем страницу к кнопке "Булки" и производим проверку сразу в утверждении
         helper = Helper()
-        bread_button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.BREAD_BUTTON))
+        bread_button = browser.find_element(*Locators.BREAD_BUTTON)
         helper.scroll_to_element(browser, bread_button)
-        #time.sleep(1)  # Дожидаемся полной готовности элемента
-        browser.execute_script("arguments[0].click();", bread_button)
+       
+        browser.execute_script("arguments[0].click();", bread_button) # проходит только с JavaScript-клик
 
-        # Проверяем, что активна именно кнопка "Булки"
-        selected_button_text = WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.selected_button)).text
-        assert selected_button_text == "Булки"
+        # Оставляем поиск элемента только в утверждении
+        assert browser.find_element(*Locators.selected_button).text == "Булки", "Активна не кнопка 'Булки'"
 
     def test_go_to_sauce(self, browser):
         # Ждем доступности кнопки "Соусы" и прокручиваем страницу к ней
         helper = Helper()
-        sauce_button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.SAUCE_BUTTON))
+        sauce_button = browser.find_element(*Locators.SAUCE_BUTTON)
         helper.scroll_to_element(browser, sauce_button)
         sauce_button.click()
 
         # Проверяем, что активна именно кнопка "Соусы"
-        selected_button_text = WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.selected_button)).text
-        assert selected_button_text == "Соусы"
+        assert browser.find_element(*Locators.selected_button).text == "Соусы", "Активна не кнопка 'Соусы'"
 
     def test_go_to_filling(self, browser):
         # Ждем доступности кнопки "Начинки" и прокручиваем страницу к ней
         helper = Helper()
-        filling_button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable(Locators.FILLING_BUTTON))
+        filling_button = browser.find_element(*Locators.FILLING_BUTTON)
         helper.scroll_to_element(browser, filling_button)
         filling_button.click()
 
         # Проверяем, что активна именно кнопка "Начинки"
-        selected_button_text = WebDriverWait(browser, 10).until(EC.visibility_of_element_located(Locators.selected_button)).text
-        assert selected_button_text == "Начинки"
+        assert browser.find_element(*Locators.selected_button).text == "Начинки", "Активна не кнопка 'Начинки'"

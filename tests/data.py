@@ -4,7 +4,8 @@ data = {
     "email": "latonova.lina@ya.ru",
     "password": "999999"
     },
-    "invalid_password_data": {
+    
+    "invalid_data": {
     "name": "Петр Петров",
     "email": "petr@example.com",
     "password": "123"

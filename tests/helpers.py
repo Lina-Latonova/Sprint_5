@@ -12,22 +12,51 @@ class Helper:
         """
         valid_data = data["valid_data"]
     
-    # Ожидаем появление поля Email и вводим значение
-        WebDriverWait(browser, 10).until(
-            EC.visibility_of_element_located(Locators.EMAIL_FIELD)).send_keys(valid_data["email"])
+    # Просто находим и вводим данные, без ожидания
+        email_field = browser.find_element(*Locators.EMAIL_FIELD)
+        email_field.send_keys(valid_data["email"])
+
+        password_field = browser.find_element(*Locators.PASSWORD_FIELD)
+        password_field.send_keys(valid_data["password"])
+
+    # Сразу кликаем на кнопку входа
+        submit_button = browser.find_element(*Locators.SUBMIT_BUTTON)
+        submit_button.click()
+    
+    def registration_valid(self, browser):
+        valid_data = data["valid_data"]
         
-    # Ожидаем поле Password и вводим пароль
-        WebDriverWait(browser, 10).until(
-            EC.visibility_of_element_located(Locators.PASSWORD_FIELD)).send_keys(valid_data["password"])
-    
-    # Кликаем на кнопку Submit
-        WebDriverWait(browser, 10).until(
-            EC.element_to_be_clickable(Locators.SUBMIT_BUTTON)).click()
-    
-    # Ждем отображения кнопки конструктора
-        WebDriverWait(browser, 10).until(
-            EC.visibility_of_element_located((Locators.CONSTRUCTOR_BUTTON)))
-    
+    # Просто находим и вводим данные, без ожидания
+        name_field = browser.find_element(*Locators.NAME_FIELD)
+        name_field.send_keys(valid_data["name"])
+        
+        email_field = browser.find_element(*Locators.EMAIL_FIELD)
+        email_field.send_keys(valid_data["email"])
+
+        password_field = browser.find_element(*Locators.PASSWORD_FIELD)
+        password_field.send_keys(valid_data["password"])
+
+    # Сразу кликаем на кнопку входа
+        registration_button = browser.find_element(*Locators.REGISTRATION_BUTTON)
+        registration_button.click()
+
+    def registration_invalid(self, browser):
+        invalid_data = data["invalid_data"]
+        
+    # Просто находим и вводим данные, без ожидания
+        name_field = browser.find_element(*Locators.NAME_FIELD)
+        name_field.send_keys(invalid_data["name"])
+        
+        email_field = browser.find_element(*Locators.EMAIL_FIELD)
+        email_field.send_keys(invalid_data["email"])
+
+        password_field = browser.find_element(*Locators.PASSWORD_FIELD)
+        password_field.send_keys(invalid_data["password"])
+
+    # Сразу кликаем на кнопку входа
+        registration_button = browser.find_element(*Locators.REGISTRATION_BUTTON)
+        registration_button.click()    
+
     def scroll_to_element(self, browser, element):
         """Метод для прокрутки к нужному элементу"""
         browser.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)    
